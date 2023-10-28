@@ -1,13 +1,15 @@
-name: Main Branch Jest Test Suite
+name: All Branch Jest Test Suite
 
 on:
   push:
-    branches: [main]
+    branches:
+      - '*'
   pull_request:
-    branches: [main]
+    branches:
+      - '*'
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     strategy:
