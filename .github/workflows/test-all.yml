@@ -1,4 +1,4 @@
-name: All Branch Jest Test Suite
+name: All Branch Vitest Test Suite
 
 on:
   push:

@@ -1,0 +1,5 @@
+export * from './components/Section1/Section1'
+export * from './components/Section2/Section2'
+export * from './components/Section3/Section3'
+export * from './components/Background/Background'
+export * from './components/Menu/Menu'
