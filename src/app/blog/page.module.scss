@@ -1,0 +1,30 @@
+.body-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+.main {
+  width: 50%;
+  margin: 0.5rem 0.25rem;
+  padding: 0.5rem;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+.bg-back {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('/images/blog/blog-bg-1.webp');
+  transform: translateZ(-1px) scale(2);
+}
+
+.bg-front {
+  width: 100vw;
+  height: 100vh;
+  background-image: url('/images/blog/blog-bg-2.webp');
+  transform: translateZ(0px);
+}

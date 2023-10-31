@@ -1,0 +1,24 @@
+.parallax-container {
+  position: fixed;
+  z-index: -2;
+  top: 0;
+  perspective: 1px;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  position: relative;
+}
+
+.bg-back {
+  width: 100vw;
+  height: 100vh;
+  background-image: url('/images/blog/blog-bg-1.webp');
+  transform: translateZ(-1px) scale(2);
+}
+
+.bg-front {
+  width: 100vw;
+  height: 100vh;
+  background-image: url('/images/blog/blog-bg-2.webp');
+  transform: translateZ(0px);
+}

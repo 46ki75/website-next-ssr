@@ -1,0 +1,26 @@
+.ol {
+  margin: 3px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.li {
+  display: inline;
+  font-weight: bold;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.span {
+  color: #888;
+  padding: 5px;
+  border-radius: 3px;
+  transition: 0.3s;
+}
+
+.cheveron {
+  padding: 0 0.2rem;
+  color: silver;
+}

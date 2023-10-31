@@ -1,0 +1,57 @@
+.side {
+  width: 25%;
+  margin: 0.5rem 0.25rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+.blog-card {
+  /* NOTICE: activated by framer-motion */
+  opacity: 0;
+
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+
+  a {
+    text-decoration: none;
+    color: unset;
+    transition: 0.3s;
+  }
+
+  a:hover {
+    opacity: 0.8;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    border-top: 3px solid rgba(61, 161, 128, 0.8);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.02);
+  }
+
+  div.caption-container {
+    padding: 0.5rem 0.5rem 0rem 0.5rem;
+
+    span {
+      font-size: 1.25rem;
+      color: var(--primary-text);
+    }
+
+    p {
+      padding: 0.25rem;
+      font-size: 0.9rem;
+      color: var(--primary-text);
+      opacity: 0.6;
+    }
+  }
+
+  div.tag-and-date-container {
+    margin-bottom: 0.25rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+}
