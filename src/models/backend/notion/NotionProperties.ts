@@ -1,29 +1,4 @@
 /**
- * page
- */
-export interface Page {
-  object: 'page'
-  id: string
-  created_time: string
-  last_edited_time: string
-  created_by: {
-    object: string
-    id: string
-  }
-  last_edited_by: {
-    object: string
-    id: string
-  }
-  cover: any
-  icon: any
-  parent: Object
-  archived: boolean
-  properties: Object
-  url: string
-  public_url: string | null
-}
-
-/**
  * status
  */
 export interface StatusProperties {

@@ -16,6 +16,6 @@ const blogTopProps: Blog = {
 
 describe('Blog/Main component', () => {
   test('it renders without crashing', () => {
-    render(<Main {...blogTopProps} />)
+    render(<Main blog={blogTopProps} />)
   })
 })

@@ -2,14 +2,20 @@
 
 import React from 'react'
 import Link from 'next/link'
+
+// framer-motion
 import { motion } from 'framer-motion'
+
+// fontawesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faChevronRight,
   faHome,
   faFolderOpen
 } from '@fortawesome/free-solid-svg-icons'
-import styles from './Breadclumb.module.scss'
+
+// scss modules
+import styles from './Breadcrumb.module.scss'
 
 export const Breadcrumb = ({ slug }: { slug: string | null }) => {
   return (
