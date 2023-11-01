@@ -1,29 +1,20 @@
-import { queryDatabaseRecursivelyAsync } from '@/helpers'
-import { MultiSelectProperties } from '@/models/backend/notion'
 import variables from '@/variables'
-import _ from 'lodash'
+import axios from 'axios'
 
 export async function GET() {
-  const data = await queryDatabaseRecursivelyAsync(
-    variables.notion.database.blog
-  )
-
-  const tags: Array<{
-    id: string
-    name: string
-    color: string
-  }> = []
-
-  for (const element of data) {
-    if ('tags' in element.properties) {
-      for (const tag of (element.properties.tags as MultiSelectProperties)
-        .multi_select) {
-        tags.push(tag)
+  try {
+    const response = await axios.get(
+      `https://api.notion.com/v1/databases/${variables.notion.database.blog}`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.NOTION_TOKEN}`,
+          'Notion-Version': '2022-06-28'
+        }
       }
-    }
+    )
+
+    return Response.json(response.data.properties.tags.multi_select.options)
+  } catch (error) {
+    return Response.json({ message: 'Not Found' })
   }
-
-  const uniqueTags = _.uniqBy(tags, 'id')
-
-  return Response.json(uniqueTags)
 }

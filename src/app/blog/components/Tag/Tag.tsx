@@ -19,19 +19,23 @@ export const Tag = ({
 }) => {
   return (
     <div className={styles['tag-container']}>
-      {tags.map((tag: { id: string; name: string; color: string }, index) => (
-        <motion.div
-          key={tag.id}
-          className={styles[tag.color]}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.1 * index + 0.5, duration: 0.2 }}
-        >
-          <span className={styles['tag-icon']}>
-            <FontAwesomeIcon icon={faTags} />
-          </span>
-          <span>{tag.name}</span>
-        </motion.div>
-      ))}
+      {tags.length ? (
+        tags.map((tag: { id: string; name: string; color: string }, index) => (
+          <motion.div
+            key={tag.id}
+            className={styles[tag.color]}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.1 * index + 0.5, duration: 0.2 }}
+          >
+            <span className={styles['tag-icon']}>
+              <FontAwesomeIcon icon={faTags} />
+            </span>
+            <span>{tag.name}</span>
+          </motion.div>
+        ))
+      ) : (
+        <></>
+      )}
     </div>
   )
 }

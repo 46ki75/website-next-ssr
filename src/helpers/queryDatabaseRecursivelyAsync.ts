@@ -10,7 +10,19 @@ export async function queryDatabaseRecursivelyAsync(
 ): Promise<Array<NotionPage>>
 export async function queryDatabaseRecursivelyAsync(
   notionDatabaseId: string,
-  filter?: {}
+  filter: {},
+  sorts: Array<{
+    property: string
+    direction: 'ascending' | 'descending' | string
+  }>
+): Promise<Array<NotionPage>>
+export async function queryDatabaseRecursivelyAsync(
+  notionDatabaseId: string,
+  filter?: {},
+  sorts?: Array<{
+    property: string
+    direction: 'ascending' | 'descending' | string
+  }>
 ): Promise<Array<NotionPage>> {
   let results: Array<NotionPage> = []
   let start_cursor: undefined | string
@@ -19,11 +31,16 @@ export async function queryDatabaseRecursivelyAsync(
     start_cursor: string | undefined
     page_size: number
     filter?: {}
+    sorts?: Array<{
+      property: string
+      direction: 'ascending' | 'descending' | string
+    }>
   } = {
     start_cursor: start_cursor,
     page_size: 100
   }
   if (filter !== undefined) reqBody.filter = filter
+  if (sorts !== undefined) reqBody.sorts = sorts
 
   while (has_more) {
     const response = await axios.post(

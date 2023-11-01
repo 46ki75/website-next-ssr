@@ -4,6 +4,19 @@
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: center;
+
+  background-image: url('/images/blog/blog-bg-2.webp');
+  &::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('/images/blog/blog-bg-1.webp');
+    transform: translateZ(-1px) scale(2);
+    z-index: -1;
+  }
 }
 
 .main {
@@ -11,6 +24,8 @@
   margin: 0.5rem 0.25rem;
   padding: 0.5rem;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  background-color: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(0.5rem);
 }
 
 .bg-back {

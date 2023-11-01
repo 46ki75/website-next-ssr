@@ -1,3 +1,5 @@
+'use client'
+
 import { Blog } from '@/models'
 import { Main } from './components'
 import React from 'react'

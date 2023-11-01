@@ -6,7 +6,6 @@ import Pagetop from '@/components/Pagetop'
 
 // scss modules
 import styles from './page.module.scss'
-import { Background } from './components'
 
 export async function generateMetadata({
   params

@@ -1,47 +1,34 @@
 import axios from 'axios'
 import variables from '@/variables'
-
-/**
- * An asynchronous function to retrieve a page from a blog post slug.
- */
-async function getPageBySlug(slug: string): Promise<any> {
-  const response = await axios.post(
-    `https://api.notion.com/v1/databases/${variables.notion.database.blog}/query`,
-    {
-      filter: {
-        and: [
-          {
-            property: 'slug',
-            unique_id: {
-              equals: Number(slug)
-            }
-          }
-        ]
-      }
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${process.env.NOTION_TOKEN}`,
-        'Notion-Version': '2022-06-28'
-      }
-    }
-  )
-
-  if (response.data.results.length === 0) {
-    throw new Error('no such record')
-  }
-  return response.data
-}
+import { queryDatabaseRecursivelyAsync } from '@/helpers'
 
 export async function GET(
   request: Request,
   { params }: { params: { slug: string } }
 ) {
   try {
-    const response = await getPageBySlug(params.slug)
+    const filter = {
+      and: [
+        {
+          property: 'slug',
+          unique_id: {
+            equals: Number(params.slug)
+          }
+        }
+      ]
+    }
+
+    const [data] = await queryDatabaseRecursivelyAsync(
+      variables.notion.database.blog,
+      filter
+    )
+
     let imageURL = 'http://localhost:3000/images/common/noimage_ogp.webp'
-    if (response.results[0].properties.ogpImage.files.length !== 0) {
-      imageURL = response.results[0].properties.ogpImage.files[0].file.url
+    if (
+      'files' in data.properties.ogpImage &&
+      data.properties.ogpImage.files.length !== 0
+    ) {
+      imageURL = data.properties.ogpImage.files[0].file.url
     }
 
     const imageResponse = await axios.get(imageURL, {

@@ -1,5 +1,4 @@
 export * from './Article/Article'
-export * from './Background/Background'
 export * from './Breadclumb/Breadcrumb'
 export * from './Date/Date'
 export * from './Header/Header'
