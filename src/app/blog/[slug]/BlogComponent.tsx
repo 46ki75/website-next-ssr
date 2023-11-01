@@ -5,10 +5,15 @@ import { Main } from '../components'
 import React, { useEffect, useState } from 'react'
 import { NotFound, notFoundBlogProps } from './NotFound'
 
+// context
+import { useLoading } from '@/contexts'
+
 export const BlogComponent = ({ slug }: { slug: string }) => {
+  const { isLoading, setIsLoading } = useLoading()
   const [data, setDada] = useState<Blog>()
 
   useEffect(() => {
+    setIsLoading(true)
     fetch('/api/notion/blog/' + slug, { next: { revalidate: 3600 } })
       .then((res) => {
         if (res.status === 404) {
@@ -22,7 +27,10 @@ export const BlogComponent = ({ slug }: { slug: string }) => {
       .catch((error) => {
         setDada(notFoundBlogProps)
       })
-  }, [slug])
+      .finally(() => {
+        setIsLoading(false)
+      })
+  }, [slug, setIsLoading])
   return (
     <>
       {data?.slug === 'NotFound' ? (

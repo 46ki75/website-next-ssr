@@ -4,6 +4,9 @@ import { Blog } from '@/models'
 import { Main } from './components'
 import React from 'react'
 
+import styles from './page.module.scss'
+import { width } from '@fortawesome/free-brands-svg-icons/fa42Group'
+
 const blogTopProps: Blog = {
   slug: 'blog',
   title: 'ブログ',
@@ -15,11 +18,20 @@ const blogTopProps: Blog = {
   content: '<h2>Hello world</h2>'
 }
 
-export const BlogTop = () => {
+const BlogTop = () => {
   return (
     <>
       <h2>これはブログトップだ</h2>
       <h2>これはブログトップだ</h2>
+      <svg height='210' width='210'>
+        <polyline
+          points='105,10 10,200 200,200 105,10'
+          stroke='black'
+          stroke-width='2'
+          fill='none'
+          className={styles.line}
+        />
+      </svg>
     </>
   )
 }

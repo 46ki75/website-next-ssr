@@ -1,8 +1,14 @@
 import type { Metadata } from 'next'
 
+// context
+import { LoadingProvider } from '@/contexts'
+
 // global scss
 import './globals.scss'
 import '@fortawesome/fontawesome-free/css/all.min.css'
+
+// components
+import { LoadingRenderer } from './LoadingRenderer'
 
 export const metadata: Metadata = {
   // TODO: set Landing Page's title and description
@@ -32,7 +38,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang='ja'>
-      <body>{children}</body>
+      <LoadingProvider>
+        <body>
+          {children}
+          <LoadingRenderer />
+        </body>
+      </LoadingProvider>
     </html>
   )
 }

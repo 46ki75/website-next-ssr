@@ -1,7 +1,7 @@
 import React from 'react'
 
 // components
-import { Header, Side } from './components'
+import { Footer, Header, Side } from './components'
 import Pagetop from '@/components/Pagetop'
 
 // scss modules
@@ -26,6 +26,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <main className={styles.main}>{children}</main>
         <Side />
       </div>
+      <Footer />
       <Pagetop />
     </>
   )

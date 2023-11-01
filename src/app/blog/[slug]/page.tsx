@@ -52,7 +52,7 @@ export async function generateStaticParams() {
 }
 
 const Page = ({ params }: { params: { slug: string } }) => {
-  return <BlogComponent slug={params.slug}></BlogComponent>
+  return <BlogComponent slug={params.slug} />
 }
 
 export default Page

@@ -1,6 +1,7 @@
 export * from './Article/Article'
 export * from './Breadclumb/Breadcrumb'
 export * from './Date/Date'
+export * from './Footer/Footer'
 export * from './Header/Header'
 export * from './Main/Main'
 export * from './Side/Side'

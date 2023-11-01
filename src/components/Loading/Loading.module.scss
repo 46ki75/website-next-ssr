@@ -1,0 +1,107 @@
+div.loading-container {
+  width: 100%;
+  position: fixed;
+  z-index: 50;
+  bottom: 0;
+  left: 0;
+
+  opacity: 1;
+  transition: 1s;
+
+  display: flex;
+  flex-direction: column;
+
+  div.svg-container {
+    margin-left: 10px;
+
+    .loading-text-loading {
+      margin-left: 0.5rem;
+      animation: blink 0.3s infinite;
+    }
+
+    .loading-text-complete {
+      margin-left: 0.5rem;
+      animation: blink 0.1s steps(1) infinite;
+    }
+    @keyframes blink {
+      0%,
+      100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+    }
+
+    .line {
+      stroke-dasharray: 20;
+      stroke-dashoffset: 100;
+      animation: drawLine 1.2s infinite ease-in-out;
+      transform-origin: center;
+    }
+
+    @keyframes drawLine {
+      0% {
+        stroke-dashoffset: 160;
+      }
+      100% {
+        stroke-dashoffset: 0;
+      }
+    }
+  }
+
+  .progress {
+    width: 100vw;
+  }
+
+  div.square-container {
+    margin: 5px 10px;
+    display: flex;
+    flex-direction: row;
+    width: 500vw;
+
+    div.char {
+      margin: 1px;
+      padding: 0 5px;
+      height: 1.75rem;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.85);
+      border: 1px solid rgba(0, 0, 0, 0.4);
+      transform: skewX(-20deg);
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    }
+
+    div.large {
+      margin: 1px;
+      width: 0.75rem;
+      height: 1.75rem;
+      border: 1px solid rgba(0, 0, 0, 0.5);
+      background-color: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(0.5rem);
+      transform: skewX(-20deg);
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    }
+
+    div.medium {
+      margin: 1px;
+      width: 0.75rem;
+      height: 1.25rem;
+      border: 1px solid rgba(0, 0, 0, 0.5);
+      background-color: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(0.25rem);
+      transform: skewX(-20deg);
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    }
+
+    div.small {
+      margin: 1px;
+      width: 0.75rem;
+      height: 0.5rem;
+      border: 1px solid rgba(0, 0, 0, 0.5);
+      background-color: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(0.25rem);
+      transform: skewX(-20deg);
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    }
+  }
+}
