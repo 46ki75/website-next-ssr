@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 
 // global scss
 import './globals.scss'
+import '@fortawesome/fontawesome-free/css/all.min.css'
 
 export const metadata: Metadata = {
   // TODO: set Landing Page's title and description

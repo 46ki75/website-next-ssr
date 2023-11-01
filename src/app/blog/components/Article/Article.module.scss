@@ -6,14 +6,15 @@ Blog article style
 
   h2 {
     margin-bottom: 2rem;
+    font-size: 1.4rem;
   }
 
   h3 {
-    margin-bottom: 2rem;
+    margin-bottom: 1.3rem;
   }
 
   h4 {
-    margin-bottom: 2rem;
+    margin-bottom: 1.2rem;
   }
 
   p {
@@ -52,6 +53,42 @@ Blog article style
 
   img {
     width: 100%;
+  }
+
+  ul {
+    margin-bottom: 2rem;
+    li {
+      margin-bottom: 1rem;
+      padding-left: 0.75em;
+      list-style-type: none !important;
+
+      &:before {
+        font-family: 'FontAwesome';
+        content: '\f0da';
+        top: 0.5em;
+        padding-right: 0.5em;
+        color: #41b06f;
+      }
+    }
+  }
+
+  ol {
+    margin-bottom: 2rem;
+    padding-left: 2.25rem;
+    list-style: decimal;
+    li {
+      margin-bottom: 1rem;
+
+      &::marker {
+        color: rgba(21, 69, 181, 0.9);
+      }
+    }
+  }
+
+  hr {
+    margin-bottom: 2rem;
+    border: none;
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.3);
   }
 
   table {

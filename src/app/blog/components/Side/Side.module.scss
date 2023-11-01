@@ -1,9 +1,15 @@
 .side {
-  width: 25%;
+  box-sizing: border-box;
+  width: calc(100% - 0.5rem);
   margin: 0.5rem 0.25rem;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
+
+  @media (min-width: 1024px) {
+    width: 33%;
+    max-width: 480px;
+  }
 }
 
 .blog-card {
@@ -51,10 +57,11 @@
   }
 
   div.tag-and-date-container {
-    margin-bottom: 0.25rem;
+    margin: 0.25rem;
+    margin-left: 0;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
-    align-items: flex-end;
   }
 }

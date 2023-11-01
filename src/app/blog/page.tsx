@@ -15,8 +15,17 @@ const blogTopProps: Blog = {
   content: '<h2>Hello world</h2>'
 }
 
+export const BlogTop = () => {
+  return (
+    <>
+      <h2>これはブログトップだ</h2>
+      <h2>これはブログトップだ</h2>
+    </>
+  )
+}
+
 const page = () => {
-  return <Main blog={blogTopProps} />
+  return <Main blog={blogTopProps} component={<BlogTop />} />
 }
 
 export default page

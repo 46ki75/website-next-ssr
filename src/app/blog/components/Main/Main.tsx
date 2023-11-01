@@ -17,7 +17,13 @@ import { Skeleton } from '@mui/material'
 // scss modules
 import styles from './Main.module.scss'
 
-export const Main = ({ blog }: { blog: Blog | undefined }) => {
+export const Main = ({
+  blog,
+  component
+}: {
+  blog: Blog | undefined
+  component?: React.JSX.Element
+}) => {
   return (
     <>
       <Breadcrumb slug={blog ? blog.slug : null} />
@@ -57,7 +63,12 @@ export const Main = ({ blog }: { blog: Blog | undefined }) => {
         <Article content={blog.content} />
       ) : (
         <>
-          <Skeleton variant='rectangular' width={'100%'} height={'500px'} />
+          <Skeleton variant='text' width={'100%'} height={'100px'} />
+          <Skeleton variant='text' width={'100%'} height={'30px'} />
+          <Skeleton variant='text' width={'100%'} height={'30px'} />
+          <Skeleton variant='text' width={'100%'} height={'30px'} />
+          <Skeleton variant='text' width={'100%'} height={'30px'} />
+          <Skeleton variant='text' width={'100%'} height={'30px'} />
           <Skeleton variant='text' width={'100%'} height={'100px'} />
           <Skeleton variant='text' width={'100%'} height={'30px'} />
           <Skeleton variant='text' width={'100%'} height={'30px'} />
@@ -66,6 +77,8 @@ export const Main = ({ blog }: { blog: Blog | undefined }) => {
           <Skeleton variant='text' width={'100%'} height={'30px'} />
         </>
       )}
+
+      {component === undefined ? <></> : component}
     </>
   )
 }
