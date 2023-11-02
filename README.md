@@ -3,6 +3,5 @@
 Please create `.env` file and edit like this
 
 ```ini
-NOTION_TOKEN="secret_************************"
 NOTION_API_KEY="secret_************************"
 ```

@@ -8,7 +8,7 @@ export async function GET() {
         next: { revalidate: 1800 },
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${process.env.NOTION_TOKEN}`,
+          Authorization: `Bearer ${process.env.NOTION_API_KEY}`,
           'Notion-Version': '2022-06-28'
         }
       }

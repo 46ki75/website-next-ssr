@@ -48,7 +48,7 @@ export async function queryDatabaseRecursivelyAsync(
         next: { revalidate: 1800 },
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${process.env.NOTION_TOKEN}`,
+          Authorization: `Bearer ${process.env.NOTION_API_KEY}`,
           'Notion-Version': '2022-06-28',
           'Content-Type': 'application/json'
         },
