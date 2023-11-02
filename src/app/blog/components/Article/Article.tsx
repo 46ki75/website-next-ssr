@@ -14,7 +14,13 @@ export const Article = ({ content }: any) => {
   const articleRef = useRef<HTMLElement | null>(null)
   useEffect(() => {
     if (articleRef.current) {
-      Prism.highlightAllUnder(articleRef.current)
+      const timerId = setTimeout(() => {
+        Prism.highlightAllUnder(articleRef.current!)
+      }, 100)
+
+      return () => {
+        clearTimeout(timerId)
+      }
     }
   }, [content])
   return (

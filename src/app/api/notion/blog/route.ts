@@ -1,5 +1,10 @@
 import { NotionBlogService } from '@/services'
 
 export async function GET() {
-  return Response.json(await NotionBlogService.getBlogListAsync())
+  try {
+    const results = await NotionBlogService.getBlogListAsync()
+    return Response.json(results)
+  } catch {
+    return Response.json({ message: 'Internal Server Error' }, { status: 500 })
+  }
 }

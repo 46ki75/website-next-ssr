@@ -3,8 +3,10 @@ import variables from '@/variables'
 
 // helper methods
 import {
+  convertBlocksToHTML,
+  convertNotionPageArrayToBlog,
   queryDatabaseRecursivelyAsync,
-  convertNotionPageArrayToBlog
+  retrieveBlockRecursivelyAsync
 } from '@/helpers'
 
 // interface
@@ -38,5 +40,32 @@ export class NotionBlogService {
     const results = convertNotionPageArrayToBlog(data)
 
     return results
+  }
+
+  static async getBlogBySlugAsync(slug: string): Promise<Blog> {
+    const filter = {
+      and: [
+        {
+          property: 'slug',
+          unique_id: {
+            equals: Number(slug)
+          }
+        }
+      ]
+    }
+
+    const data = await queryDatabaseRecursivelyAsync(
+      variables.notion.database.blog,
+      filter
+    )
+
+    const [result] = data
+
+    const [blog] = convertNotionPageArrayToBlog(data)
+
+    const blocks = await retrieveBlockRecursivelyAsync(result.id)
+    blog.content = convertBlocksToHTML(blocks)
+
+    return blog
   }
 }

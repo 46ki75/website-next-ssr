@@ -1,14 +1,17 @@
 'use server'
-import {
-  queryDatabaseRecursivelyAsync,
-  convertNotionPageArrayToBlog,
-  retrieveBlockRecursivelyAsync,
-  convertBlocksToHTML
-} from '@/helpers'
-import variables from '@/variables'
-import { BlogComponent } from './BlogComponent'
 import React from 'react'
+
+// global variables
+import variables from '@/variables'
+
+// components
+import { BlogComponent } from './BlogComponent'
+
+// interfaces
 import { Blog } from '@/models'
+
+// services
+import { NotionBlogService } from '@/services'
 
 export async function generateMetadata({
   params
@@ -16,28 +19,7 @@ export async function generateMetadata({
   params: { slug: string }
 }) {
   try {
-    const filter = {
-      and: [
-        {
-          property: 'slug',
-          unique_id: {
-            equals: Number(params.slug)
-          }
-        }
-      ]
-    }
-
-    const data = await queryDatabaseRecursivelyAsync(
-      variables.notion.database.blog,
-      filter
-    )
-
-    const [result] = data
-
-    const [blog] = convertNotionPageArrayToBlog(data)
-
-    const blocks = await retrieveBlockRecursivelyAsync(result.id)
-    blog.content = convertBlocksToHTML(blocks)
+    const blog = await NotionBlogService.getBlogBySlugAsync(params.slug)
 
     return {
       title: blog.title,
@@ -63,31 +45,7 @@ export async function generateMetadata({
  * Fetch the available paths in advance for SSG.
  */
 export async function generateStaticParams() {
-  const filter = {
-    or: [
-      {
-        property: 'status',
-        status: {
-          equals: 'public'
-        }
-      }
-    ]
-  }
-
-  const sorts = [
-    {
-      property: 'createdAt',
-      direction: 'descending'
-    }
-  ]
-
-  const data = await queryDatabaseRecursivelyAsync(
-    variables.notion.database.blog,
-    filter,
-    sorts
-  )
-
-  const results = convertNotionPageArrayToBlog(data)
+  const results = await NotionBlogService.getBlogListAsync()
 
   return results.map((element: Blog) => ({
     slug: element.slug
