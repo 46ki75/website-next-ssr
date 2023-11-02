@@ -52,14 +52,14 @@ export const Loading = ({ isLoading }: { isLoading: boolean }) => {
           <polyline
             points='15.803,1.505 1.505,30.1 30.1,30.1 15.803,1.505'
             stroke='white'
-            stroke-width='1.5'
+            strokeWidth='1.5'
             fill='none'
             className={styles.line}
           />
           <polyline
             points='15.803,1.505 1.505,30.1 30.1,30.1 15.803,1.505'
             stroke='black'
-            stroke-width='1'
+            strokeWidth='1'
             fill='none'
             className={styles.line}
           />

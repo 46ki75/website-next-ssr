@@ -1,11 +1,12 @@
 import variables from '@/variables'
-import axios from 'axios'
 
 export async function GET() {
   try {
-    const response = await axios.get(
+    const response: Response = await fetch(
       `https://api.notion.com/v1/databases/${variables.notion.database.blog}`,
       {
+        next: { revalidate: 1800 },
+        method: 'GET',
         headers: {
           Authorization: `Bearer ${process.env.NOTION_TOKEN}`,
           'Notion-Version': '2022-06-28'
@@ -13,7 +14,9 @@ export async function GET() {
       }
     )
 
-    return Response.json(response.data.properties.tags.multi_select.options)
+    const data = await response.json()
+
+    return Response.json(data.properties.tags.multi_select.options)
   } catch (error) {
     return Response.json({ message: 'Not Found' })
   }

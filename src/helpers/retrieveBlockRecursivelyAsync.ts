@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 export async function retrieveBlockRecursivelyAsync(id: string) {
   let blocks = await getContentById(id)
   return await getChildBlocks(blocks)
@@ -10,22 +8,29 @@ async function getContentById(id: string) {
   let nextCursor: string | null = null
   const blocks = []
   while (hasMore) {
-    const response: any = await axios.get(
-      `https://api.notion.com/v1/blocks/${id}/children`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.NOTION_TOKEN}`,
-          'Notion-Version': '2022-06-28'
-        },
-        params: { page_size: 100, start_cursor: nextCursor }
+    const url = new URL(`https://api.notion.com/v1/blocks/${id}/children`)
+    url.searchParams.append('page_size', '100')
+    if (nextCursor) {
+      url.searchParams.append('start_cursor', nextCursor)
+    }
+
+    const rawResponse: Response = await fetch(url.toString(), {
+      next: { revalidate: 1800 },
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${process.env.NOTION_TOKEN}`,
+        'Notion-Version': '2022-06-28'
       }
-    )
-    for (const element of response.data.results) {
+    })
+
+    const response = await rawResponse.json()
+
+    for (const element of response.results) {
       blocks.push(element)
     }
 
-    hasMore = response.data.has_more
-    nextCursor = response.data.next_cursor
+    hasMore = response.has_more
+    nextCursor = response.next_cursor
   }
 
   return blocks
@@ -34,34 +39,41 @@ async function getContentById(id: string) {
 async function getChildBlocks(blocks: Array<any>) {
   for (const [index, element] of blocks.entries()) {
     if (element.type === 'table') {
-      const response: any = await axios.get(
-        `https://api.notion.com/v1/blocks/${element.id}/children`,
-        {
-          headers: {
-            Authorization: `Bearer ${process.env.NOTION_TOKEN}`,
-            'Notion-Version': '2022-06-28'
-          },
-          params: { page_size: 100 }
+      const url = new URL(
+        `https://api.notion.com/v1/blocks/${element.id}/children`
+      )
+      url.searchParams.append('page_size', '100')
+
+      const rawResponse: Response = await fetch(url.toString(), {
+        next: { revalidate: 1800 },
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${process.env.NOTION_TOKEN}`,
+          'Notion-Version': '2022-06-28'
         }
-      )
-      const tableRow = response.data.results.map(
-        (element: any) => element.table_row
-      )
+      })
+
+      const response = await rawResponse.json()
+
+      const tableRow = response.results.map((element: any) => element.table_row)
       blocks[index].table.children = tableRow
     } else if (element.type === 'toggle') {
-      const response: any = await axios.get(
-        `https://api.notion.com/v1/blocks/${element.id}/children`,
-        {
-          headers: {
-            Authorization: `Bearer ${process.env.NOTION_TOKEN}`,
-            'Notion-Version': '2022-06-28'
-          },
-          params: { page_size: 100 }
+      const url = new URL(
+        `https://api.notion.com/v1/blocks/${element.id}/children`
+      )
+      url.searchParams.append('page_size', '100')
+
+      const rawResponse: Response = await fetch(url.toString(), {
+        next: { revalidate: 1800 },
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${process.env.NOTION_TOKEN}`,
+          'Notion-Version': '2022-06-28'
         }
-      )
-      const roggleChildren = response.data.results.map(
-        (element: any) => element
-      )
+      })
+
+      const response = await rawResponse.json()
+      const roggleChildren = response.results.map((element: any) => element)
       blocks[index].toggle.children = roggleChildren
     }
   }

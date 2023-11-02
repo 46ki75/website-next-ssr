@@ -17,16 +17,20 @@ import { Skeleton } from '@mui/material'
 // global variables
 import variables from '@/variables'
 
+// context
+import { useLoading } from '@/contexts'
+
 // scss modules
 import styles from './Side.module.scss'
 import { Date, Tag } from '..'
 
 export const Side = () => {
+  const { isLoading, setIsLoading } = useLoading()
   const [data, setData] = useState<Array<Blog>>([])
 
   useEffect(() => {
     fetch(`/api/notion/blog`, {
-      next: { revalidate: 3600 }
+      next: { revalidate: 1800 }
     })
       .then((res) => res.json())
       .then((result) => {

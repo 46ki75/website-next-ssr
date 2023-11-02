@@ -1,6 +1,11 @@
 'use server'
-
-import axios from 'axios'
+import {
+  queryDatabaseRecursivelyAsync,
+  convertNotionPageArrayToBlog,
+  retrieveBlockRecursivelyAsync,
+  convertBlocksToHTML
+} from '@/helpers'
+import variables from '@/variables'
 import { BlogComponent } from './BlogComponent'
 import React from 'react'
 import { Blog } from '@/models'
@@ -11,29 +16,40 @@ export async function generateMetadata({
   params: { slug: string }
 }) {
   try {
-    const response = await axios.get(
-      `http://localhost:3000/api/notion/blog/${params.slug}`
+    const filter = {
+      and: [
+        {
+          property: 'slug',
+          unique_id: {
+            equals: Number(params.slug)
+          }
+        }
+      ]
+    }
+
+    const data = await queryDatabaseRecursivelyAsync(
+      variables.notion.database.blog,
+      filter
     )
 
+    const [result] = data
+
+    const [blog] = convertNotionPageArrayToBlog(data)
+
+    const blocks = await retrieveBlockRecursivelyAsync(result.id)
+    blog.content = convertBlocksToHTML(blocks)
+
     return {
-      title: response.data.title,
-      description: response.data.description,
+      title: blog.title,
+      description: blog.description,
       openGraph: {
-        title: response.data.title,
-        description: response.data.description,
+        title: blog.title,
+        description: blog.description,
         type: 'article',
-        images: [
-          {
-            url: response.data.ogpImage,
-            width: 1200,
-            height: 630
-          }
-        ],
-        article: {
-          publishedTime: response.data.createdAt,
-          modifiedTime: response.data.updatedAt,
-          authors: ['Chomolungma Shirayuki']
-        }
+        images: `${variables.host.prod}${blog.ogpImage}`,
+        publishedTime: blog.createdAt,
+        modifiedTime: blog.updatedAt,
+        authors: ['Chomolungma Shirayuki']
       }
     }
   } catch {
@@ -43,10 +59,37 @@ export async function generateMetadata({
   }
 }
 
+/**
+ * Fetch the available paths in advance for SSG.
+ */
 export async function generateStaticParams() {
-  const response = await axios.get(`http://localhost:3000/api/notion/blog`)
+  const filter = {
+    or: [
+      {
+        property: 'status',
+        status: {
+          equals: 'public'
+        }
+      }
+    ]
+  }
 
-  return response.data.map((element: Blog) => ({
+  const sorts = [
+    {
+      property: 'createdAt',
+      direction: 'descending'
+    }
+  ]
+
+  const data = await queryDatabaseRecursivelyAsync(
+    variables.notion.database.blog,
+    filter,
+    sorts
+  )
+
+  const results = convertNotionPageArrayToBlog(data)
+
+  return results.map((element: Blog) => ({
     slug: element.slug
   }))
 }

@@ -1,4 +1,3 @@
-import axios from 'axios'
 import variables from '@/variables'
 import { queryDatabaseRecursivelyAsync } from '@/helpers'
 
@@ -31,28 +30,14 @@ export async function GET(
       imageURL = data.properties.ogpImage.files[0].file.url
     }
 
-    const imageResponse = await axios.get(imageURL, {
-      responseType: 'arraybuffer'
-    })
+    const imageResponse: Response = await fetch(imageURL)
+    const arrayBuffer: ArrayBuffer = await imageResponse.arrayBuffer()
 
-    return new Response(imageResponse.data, {
+    return new Response(arrayBuffer, {
       headers: {
-        'Content-Type': imageResponse.headers['content-type'],
-        'Content-Length': imageResponse.headers['content-length']
+        'Content-Type': imageResponse.headers.get('content-type') || '',
+        'Content-Length': imageResponse.headers.get('content-length') || ''
       }
     })
-  } catch (error) {
-    const imageResponse = await axios.get(
-      'http://localhost:3000/images/common/noimage_ogp.webp',
-      {
-        responseType: 'arraybuffer'
-      }
-    )
-    return new Response(imageResponse.data, {
-      headers: {
-        'Content-Type': imageResponse.headers['content-type'],
-        'Content-Length': imageResponse.headers['content-length']
-      }
-    })
-  }
+  } catch (error) {}
 }

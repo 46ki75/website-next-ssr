@@ -27,7 +27,7 @@ const BlogTop = () => {
         <polyline
           points='105,10 10,200 200,200 105,10'
           stroke='black'
-          stroke-width='2'
+          strokeWidth='1'
           fill='none'
           className={styles.line}
         />

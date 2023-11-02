@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { NotionList, NotionPage } from '@/models/backend/notion'
 
 export async function queryDatabaseRecursivelyAsync(
@@ -43,23 +42,28 @@ export async function queryDatabaseRecursivelyAsync(
   if (sorts !== undefined) reqBody.sorts = sorts
 
   while (has_more) {
-    const response = await axios.post(
+    const rawResponse = await fetch(
       `https://api.notion.com/v1/databases/${notionDatabaseId}/query`,
-      reqBody,
       {
+        next: { revalidate: 1800 },
+        method: 'POST',
         headers: {
           Authorization: `Bearer ${process.env.NOTION_TOKEN}`,
-          'Notion-Version': '2022-06-28'
-        }
+          'Notion-Version': '2022-06-28',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(reqBody)
       }
     )
 
-    for (const result of response.data.results) {
+    const response = await rawResponse.json()
+
+    for (const result of response.results) {
       results.push(result)
     }
 
-    has_more = (response.data as NotionList).has_more
-    start_cursor = (response.data as NotionList).next_cursor
+    has_more = (response as NotionList).has_more
+    start_cursor = (response as NotionList).next_cursor
   }
 
   return results

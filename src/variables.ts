@@ -1,6 +1,6 @@
 const variables = {
   siteName: { en: 'Shirayuki Laboratory', ja: '白雪総研' },
-  host: { api: 'http://localhost:3000' },
+  host: { api: 'http://localhost:3000', prod: 'https://www.46ki75.com' },
   notion: {
     database: {
       blog: 'cb5815aab6d64cb1b0a7ed0064826b45'
