@@ -67,7 +67,7 @@ export const Loading = ({ isLoading }: { isLoading: boolean }) => {
       <div className={styles['square-container']}>
         <div className={styles.char}>{isLoading ? randomString : '100%'}</div>
         {array.map((_, index) => (
-          <motion.div
+          <div
             className={
               index <= 8
                 ? styles.large
@@ -76,9 +76,7 @@ export const Loading = ({ isLoading }: { isLoading: boolean }) => {
                 : styles.small
             }
             key={index}
-            style={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.05 * index, duration: 0.1 }}
+            style={{ animationDelay: 0.03 * index + 's' }}
           />
         ))}
       </div>

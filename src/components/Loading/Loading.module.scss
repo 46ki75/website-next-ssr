@@ -72,6 +72,7 @@ div.loading-container {
     }
 
     div.large {
+      opacity: 0;
       margin: 1px;
       width: 0.75rem;
       height: 1.75rem;
@@ -80,9 +81,11 @@ div.loading-container {
       backdrop-filter: blur(0.5rem);
       transform: skewX(-20deg);
       box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+      animation: appear 0.1s steps(1) both;
     }
 
     div.medium {
+      opacity: 0;
       margin: 1px;
       width: 0.75rem;
       height: 1.25rem;
@@ -91,9 +94,11 @@ div.loading-container {
       backdrop-filter: blur(0.25rem);
       transform: skewX(-20deg);
       box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+      animation: appear 0.1s steps(1) both;
     }
 
     div.small {
+      opacity: 0;
       margin: 1px;
       width: 0.75rem;
       height: 0.5rem;
@@ -102,6 +107,16 @@ div.loading-container {
       backdrop-filter: blur(0.25rem);
       transform: skewX(-20deg);
       box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+      animation: appear 0.1s steps(1) both;
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
     }
   }
 }

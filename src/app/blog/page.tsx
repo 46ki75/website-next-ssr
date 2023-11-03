@@ -5,7 +5,6 @@ import { Main } from './components'
 import React from 'react'
 
 import styles from './page.module.scss'
-import { width } from '@fortawesome/free-brands-svg-icons/fa42Group'
 
 const blogTopProps: Blog = {
   slug: 'blog',
