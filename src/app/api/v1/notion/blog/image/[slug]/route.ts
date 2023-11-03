@@ -25,13 +25,22 @@ export async function GET(
       filter
     )
 
-    let imageURL = 'http://localhost:3000/images/common/noimage_ogp.webp'
     if (
       'files' in data.properties.ogpImage &&
       data.properties.ogpImage.files.length !== 0
     ) {
-      imageURL = data.properties.ogpImage.files[0].file.url
+      const imageURL = data.properties.ogpImage.files[0].file.url
 
+      const imageResponse: Response = await fetch(imageURL)
+      const arrayBuffer: ArrayBuffer = await imageResponse.arrayBuffer()
+
+      return new Response(arrayBuffer, {
+        headers: {
+          'Content-Type': imageResponse.headers.get('content-type') || '',
+          'Content-Length': imageResponse.headers.get('content-length') || ''
+        }
+      })
+    } else {
       const defaultImagePath = path.resolve(
         'public/images/common/noimage_ogp.webp'
       )
@@ -42,16 +51,6 @@ export async function GET(
         headers: {
           'Content-Type': defaultMimeType,
           'Content-Length': defaultImageBuffer.length.toString()
-        }
-      })
-    } else {
-      const imageResponse: Response = await fetch(imageURL)
-      const arrayBuffer: ArrayBuffer = await imageResponse.arrayBuffer()
-
-      return new Response(arrayBuffer, {
-        headers: {
-          'Content-Type': imageResponse.headers.get('content-type') || '',
-          'Content-Length': imageResponse.headers.get('content-length') || ''
         }
       })
     }
