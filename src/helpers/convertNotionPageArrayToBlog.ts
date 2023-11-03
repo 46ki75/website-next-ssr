@@ -30,7 +30,7 @@ export function convertNotionPageArrayToBlog(
         .map((item: any) => item.plain_text)
         .join(''),
       ogpImage:
-        '/api/notion/blog/image/' + element.properties.slug.unique_id.number,
+        '/api/v1/notion/blog/image/' + element.properties.slug.unique_id.number,
       tags: element.properties.tags.multi_select,
       createdAt: new Date(
         String(element.properties.createdAt.date.start)

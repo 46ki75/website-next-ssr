@@ -2,7 +2,8 @@ import React from 'react'
 import Image from 'next/image'
 
 // components
-import { Article, Breadcrumb, Date, Tag } from '..'
+import { Article } from '..'
+import { Breadcrumb, Date, Tag } from '../../components'
 import { HR } from '@/components'
 
 // interfaces

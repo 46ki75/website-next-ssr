@@ -46,18 +46,26 @@ export const Footer = () => {
           <span>SOCIAL</span>
           <ul>
             <li>
-              <Link href={'https://twitter.com/46ki75'}>
+              <a
+                href={'https://twitter.com/46ki75'}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
                 <FontAwesomeIcon icon={faTwitter} />
                 <span>twitter(X)</span>
                 <FontAwesomeIcon icon={faExternalLinkAlt} />
-              </Link>
+              </a>
             </li>
             <li>
-              <Link href={'https://github.com/46ki75'}>
+              <a
+                href={'https://github.com/46ki75'}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
                 <FontAwesomeIcon icon={faGithub} />
                 <span>GitHub</span>
                 <FontAwesomeIcon icon={faExternalLinkAlt} />
-              </Link>
+              </a>
             </li>
           </ul>
         </div>

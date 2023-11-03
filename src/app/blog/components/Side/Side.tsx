@@ -29,7 +29,7 @@ export const Side = () => {
   const [data, setData] = useState<Array<Blog>>([])
 
   useEffect(() => {
-    fetch(`/api/notion/blog`, {
+    fetch(`/api/v1/notion/blog`, {
       next: { revalidate: 1800 }
     })
       .then((res) => res.json())

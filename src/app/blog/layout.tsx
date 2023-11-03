@@ -12,7 +12,7 @@ export async function generateMetadata({
 }: {
   params: { slug: string }
 }) {
-  const response = await fetch(`http://localhost:3000/api/notion/blog/4`)
+  const response = await fetch(`http://localhost:3000/api/v1/notion/blog/4`)
   return {
     title: '...'
   }

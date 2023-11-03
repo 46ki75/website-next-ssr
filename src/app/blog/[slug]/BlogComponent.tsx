@@ -18,7 +18,7 @@ export const BlogComponent = ({ slug }: { slug: string }) => {
 
   useEffect(() => {
     setIsLoading(true)
-    fetch('/api/notion/blog/' + slug, { next: { revalidate: 1800 } })
+    fetch('/api/v1/notion/blog/' + slug, { next: { revalidate: 1800 } })
       .then((res) => {
         if (res.status === 404) {
           throw new Error('Not Found')
