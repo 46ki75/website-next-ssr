@@ -1,25 +1,11 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
-
-// framer motion
-import { motion } from 'framer-motion'
-
-// scss module
+import React, { useEffect, useState, useMemo } from 'react'
 import styles from './Loading.module.scss'
-
-// material UI
 import { LinearProgress } from '@mui/material'
 
-const getRandomString = (length: number) => {
-  const characters = '1234567890?!x%'
-  let result = ''
-  for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * characters.length))
-  }
-  return result
-}
-
+// useMemo を使用してメモ化
+// eslint-disable-next-line react-hooks/rules-of-hooks
 const loadedStyle = {
   opacity: 0
 }
@@ -29,18 +15,24 @@ const loadingStyle = {
 
 export const Loading = ({ isLoading }: { isLoading: boolean }) => {
   const [randomString, setRandomString] = useState<string>('')
-  const [array, setArray] = useState<null[]>([null, null, null])
+
+  const [counter, setCounter] = useState<number>(3)
 
   useEffect(() => {
+    if (!isLoading) return
+
     const intervalId = setInterval(() => {
       setRandomString(String(Math.floor(Math.random() * 900) + 100) + '%')
-      if (array.length < 100 && isLoading)
-        setArray((prevItems) => [...prevItems, null, null])
-    }, 50)
-    return () => {
-      clearInterval(intervalId)
-    }
-  }, [array.length, isLoading])
+      setCounter((prev) => (prev < 100 ? prev + 2 : prev))
+    }, 40)
+
+    return () => clearInterval(intervalId)
+  }, [isLoading])
+
+  const array = useMemo(
+    () => Array.from({ length: counter }, () => null),
+    [counter]
+  )
 
   return (
     <div
