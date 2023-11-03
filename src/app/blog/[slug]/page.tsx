@@ -12,6 +12,11 @@ import { Blog } from '@/models'
 
 // services
 import { NotionBlogService } from '@/services'
+import {
+  NotionList,
+  NotionPage,
+  UniqueIdProperties
+} from '@/models/backend/notion'
 
 export async function generateMetadata({
   params
@@ -44,13 +49,12 @@ export async function generateMetadata({
 /**
  * Fetch the available paths in advance for SSG.
  */
-export async function generateStaticParams() {
-  const results = await NotionBlogService.getBlogListAsync()
-
-  return results.map((element: Blog) => ({
-    slug: element.slug
-  }))
-}
+// export async function generateStaticParams() {
+// const results = await NotionBlogService.getBlogListAsync()
+// return results.map((element: Blog) => ({
+//   slug: element.slug
+// }))
+// }
 
 const Page = ({ params }: { params: { slug: string } }) => {
   return <BlogComponent slug={params.slug} />
