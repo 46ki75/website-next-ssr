@@ -4,6 +4,9 @@ div.loading-container {
   z-index: 50;
   bottom: 0;
   left: 0;
+  padding-top: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(2px);
 
   opacity: 1;
   transition: 0.5s;
