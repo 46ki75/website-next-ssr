@@ -1,12 +1,13 @@
 'use client'
 
-import React, { useEffect, useState, useMemo } from 'react'
-import styles from './Loading.module.scss'
-import { LinearProgress } from '@mui/material'
-import { motion } from 'framer-motion'
+import React, { useEffect, useState } from 'react'
 
-// useMemo を使用してメモ化
-// eslint-disable-next-line react-hooks/rules-of-hooks
+// Material UI
+import { LinearProgress } from '@mui/material'
+
+// scss modules
+import styles from './Loading.module.scss'
+
 const loadedStyle = {
   opacity: 0
 }
@@ -17,23 +18,43 @@ const loadingStyle = {
 export const Loading = ({ isLoading }: { isLoading: boolean }) => {
   const [randomString, setRandomString] = useState<string>('000%')
 
-  const [counter, setCounter] = useState<number>(3)
+  const [counter, setCounter] = useState<number>(1)
+
+  const [isLoadingDelay, setIsLoadingDelay] = useState<boolean>(true)
 
   useEffect(() => {
-    if (!isLoading) return
+    let timeoutId: NodeJS.Timeout
+
+    if (!isLoading) {
+      timeoutId = setTimeout(() => {
+        setIsLoadingDelay(false)
+      }, 500)
+    } else {
+      setIsLoadingDelay(true)
+    }
+
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId)
+      }
+    }
+  }, [isLoading])
+
+  useEffect(() => {
+    if (!isLoadingDelay) return
 
     const intervalId = setInterval(() => {
       setRandomString(String(Math.floor(Math.random() * 900) + 100) + '%')
-      setCounter((prev) => (prev < 100 ? prev + 2 : prev))
-    }, 40)
+      setCounter((prev) => (prev < 100 ? prev + 1 : prev))
+    }, 10)
 
     return () => clearInterval(intervalId)
-  }, [isLoading])
+  }, [isLoadingDelay])
 
   return (
     <div
       className={styles['loading-container']}
-      style={isLoading ? loadingStyle : loadedStyle}
+      style={isLoadingDelay ? loadingStyle : loadedStyle}
     >
       <div className={styles['svg-container']}>
         <svg height='32' width='32'>
@@ -52,14 +73,18 @@ export const Loading = ({ isLoading }: { isLoading: boolean }) => {
             className={styles.line}
           />
         </svg>
-        {isLoading ? (
+        {isLoadingDelay ? (
           <span className={styles['loading-text-loading']}>LOADING...</span>
         ) : (
-          <span className={styles['loading-text-complete']}>COMPLETE!</span>
+          <span className={styles['loading-text-complete']}>
+            LOADING COMPLETE!
+          </span>
         )}
       </div>
       <div className={styles['square-container']}>
-        <div className={styles.char}>{isLoading ? randomString : '100%'}</div>
+        <div className={styles.char}>
+          {isLoadingDelay ? randomString : '100%'}
+        </div>
         {Array.from({ length: counter }).map((_, index) => (
           <div
             className={

@@ -2,7 +2,10 @@
 
 import React, { useEffect, useState, useRef } from 'react'
 
+// contexts
 import { useLoading } from '@/contexts'
+
+// components
 import { Loading } from '@/components'
 
 export const LoadingRenderer = () => {
@@ -16,7 +19,7 @@ export const LoadingRenderer = () => {
     } else {
       timeoutId.current = setTimeout(() => {
         setIsLoadingDelay(false)
-      }, 500)
+      }, 1000)
     }
 
     return () => {
