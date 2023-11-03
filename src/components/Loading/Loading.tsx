@@ -15,7 +15,7 @@ const loadingStyle = {
 }
 
 export const Loading = ({ isLoading }: { isLoading: boolean }) => {
-  const [randomString, setRandomString] = useState<string>('')
+  const [randomString, setRandomString] = useState<string>('000%')
 
   const [counter, setCounter] = useState<number>(3)
 
@@ -29,12 +29,6 @@ export const Loading = ({ isLoading }: { isLoading: boolean }) => {
 
     return () => clearInterval(intervalId)
   }, [isLoading])
-
-  const maxElements = 50
-  const array = useMemo(
-    () => Array.from({ length: maxElements }, () => null),
-    []
-  )
 
   return (
     <div
@@ -66,17 +60,16 @@ export const Loading = ({ isLoading }: { isLoading: boolean }) => {
       </div>
       <div className={styles['square-container']}>
         <div className={styles.char}>{isLoading ? randomString : '100%'}</div>
-        {array.map((_, index) => (
+        {Array.from({ length: counter }).map((_, index) => (
           <div
             className={
-              index <= 8
+              index <= 5
                 ? styles.large
-                : index <= 16
+                : index <= 12
                 ? styles.medium
                 : styles.small
             }
             key={index}
-            style={{ animationDelay: 0.03 * index + 's' }}
           />
         ))}
       </div>

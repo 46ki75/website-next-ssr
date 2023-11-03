@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 // framer-motion
 import { motion } from 'framer-motion'
@@ -37,6 +38,17 @@ export const Side = () => {
       })
   }, [])
 
+  const pathname = usePathname()
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     window.scrollTo({
+  //       top: 0,
+  //       behavior: 'smooth'
+  //     })
+  //   }, 200)
+  // }, [pathname])
+
   return (
     <div className={styles.side}>
       {data.length ? (
@@ -52,8 +64,16 @@ export const Side = () => {
               transition: { duration: 0.1 }
             }}
             whileTap={{ scale: 0.97, transition: { duration: 0.1 } }}
+            onClick={() => {
+              setTimeout(() => {
+                window.scrollTo({
+                  top: 0,
+                  behavior: 'smooth'
+                })
+              }, 100)
+            }}
           >
-            <Link href={`/blog/${element.slug}`} scroll={true}>
+            <Link href={`/blog/${element.slug}`} scroll={false}>
               <Image
                 src={element.ogpImage}
                 width='1200'
