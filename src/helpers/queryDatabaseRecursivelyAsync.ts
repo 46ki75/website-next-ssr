@@ -45,7 +45,7 @@ export async function queryDatabaseRecursivelyAsync(
     const rawResponse = await fetch(
       `https://api.notion.com/v1/databases/${notionDatabaseId}/query`,
       {
-        next: { revalidate: 1800 },
+        next: { revalidate: 900 },
         method: 'POST',
         headers: {
           Authorization: `Bearer ${process.env.NOTION_API_KEY}`,

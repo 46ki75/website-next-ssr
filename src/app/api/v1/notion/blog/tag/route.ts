@@ -5,7 +5,7 @@ export async function GET() {
     const response: Response = await fetch(
       `https://api.notion.com/v1/databases/${variables.notion.database.blog}`,
       {
-        next: { revalidate: 1800 },
+        next: { revalidate: 900 },
         method: 'GET',
         headers: {
           Authorization: `Bearer ${process.env.NOTION_API_KEY}`,

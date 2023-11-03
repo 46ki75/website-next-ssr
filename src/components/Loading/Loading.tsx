@@ -29,14 +29,14 @@ const loadingStyle = {
 
 export const Loading = ({ isLoading }: { isLoading: boolean }) => {
   const [randomString, setRandomString] = useState<string>('')
-  const [array, setArray] = useState<null[]>([])
+  const [array, setArray] = useState<null[]>([null, null, null])
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setRandomString(getRandomString(4))
+      setRandomString(String(Math.floor(Math.random() * 900) + 100) + '%')
       if (array.length < 100 && isLoading)
         setArray((prevItems) => [...prevItems, null, null])
-    }, 20)
+    }, 50)
     return () => {
       clearInterval(intervalId)
     }
@@ -72,15 +72,18 @@ export const Loading = ({ isLoading }: { isLoading: boolean }) => {
       </div>
       <div className={styles['square-container']}>
         <div className={styles.char}>{isLoading ? randomString : '100%'}</div>
-        {array.map((_, index) =>
-          index <= 8 ? (
-            <motion.div className={styles.large} key={index} />
-          ) : index <= 16 ? (
-            <motion.div className={styles.medium} key={index} />
-          ) : (
-            <motion.div className={styles.small} key={index} />
-          )
-        )}
+        {array.map((_, index) => (
+          <div
+            className={
+              index <= 8
+                ? styles.large
+                : index <= 16
+                ? styles.medium
+                : styles.small
+            }
+            key={index}
+          />
+        ))}
       </div>
       <LinearProgress color='inherit' className={styles.progress} />
     </div>

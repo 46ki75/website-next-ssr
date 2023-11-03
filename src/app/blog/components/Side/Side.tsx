@@ -30,7 +30,7 @@ export const Side = () => {
 
   useEffect(() => {
     fetch(`/api/v1/notion/blog`, {
-      next: { revalidate: 1800 }
+      next: { revalidate: 900 }
     })
       .then((res) => res.json())
       .then((result) => {

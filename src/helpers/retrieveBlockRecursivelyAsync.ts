@@ -15,7 +15,7 @@ async function getContentById(id: string) {
     }
 
     const rawResponse: Response = await fetch(url.toString(), {
-      next: { revalidate: 1800 },
+      next: { revalidate: 900 },
       method: 'GET',
       headers: {
         Authorization: `Bearer ${process.env.NOTION_API_KEY}`,
@@ -45,7 +45,7 @@ async function getChildBlocks(blocks: Array<any>) {
       url.searchParams.append('page_size', '100')
 
       const rawResponse: Response = await fetch(url.toString(), {
-        next: { revalidate: 1800 },
+        next: { revalidate: 900 },
         method: 'GET',
         headers: {
           Authorization: `Bearer ${process.env.NOTION_API_KEY}`,
@@ -64,7 +64,7 @@ async function getChildBlocks(blocks: Array<any>) {
       url.searchParams.append('page_size', '100')
 
       const rawResponse: Response = await fetch(url.toString(), {
-        next: { revalidate: 1800 },
+        next: { revalidate: 900 },
         method: 'GET',
         headers: {
           Authorization: `Bearer ${process.env.NOTION_API_KEY}`,

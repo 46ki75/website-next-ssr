@@ -41,18 +41,20 @@ export async function GET(
         }
       })
     } else {
-      const defaultImagePath = path.resolve(
-        'public/images/common/noimage_ogp.webp'
-      )
-      const defaultImageBuffer = await fs.readFile(defaultImagePath)
-      const defaultMimeType = lookup(defaultImagePath) || ''
-
-      return new Response(defaultImageBuffer, {
-        headers: {
-          'Content-Type': defaultMimeType,
-          'Content-Length': defaultImageBuffer.length.toString()
-        }
-      })
+      throw Error('Image Not Found')
     }
-  } catch (error) {}
+  } catch (error) {
+    const defaultImagePath = path.resolve(
+      'public/images/common/noimage_ogp.webp'
+    )
+    const defaultImageBuffer = await fs.readFile(defaultImagePath)
+    const defaultMimeType = lookup(defaultImagePath) || ''
+
+    return new Response(defaultImageBuffer, {
+      headers: {
+        'Content-Type': defaultMimeType,
+        'Content-Length': defaultImageBuffer.length.toString()
+      }
+    })
+  }
 }
