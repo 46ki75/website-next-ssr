@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 // context
-import { LoadingProvider } from '@/contexts'
+import { LoadingProvider, ThemeProvider } from '@/contexts'
 
 // global scss
 import './globals.scss'
@@ -38,12 +38,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang='ja'>
-      <LoadingProvider>
-        <body>
-          {children}
-          <LoadingRenderer />
-        </body>
-      </LoadingProvider>
+      <ThemeProvider>
+        <LoadingProvider>
+          <body>
+            {children}
+            <LoadingRenderer />
+          </body>
+        </LoadingProvider>
+      </ThemeProvider>
     </html>
   )
 }

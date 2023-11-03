@@ -1,9 +1,15 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import styles from './Header.module.scss'
+
+// global variables
 import variables from '@/variables'
+
+// framer-motion
 import { useScroll } from 'framer-motion'
+
+// scss modules
+import styles from './Header.module.scss'
 
 export const Header = () => {
   const [style, setStyle] = useState(styles['header-top'])

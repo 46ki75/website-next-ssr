@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 
 // framer-motion
 import { motion } from 'framer-motion'
@@ -37,17 +36,6 @@ export const Side = () => {
         setData(result)
       })
   }, [])
-
-  const pathname = usePathname()
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     window.scrollTo({
-  //       top: 0,
-  //       behavior: 'smooth'
-  //     })
-  //   }, 200)
-  // }, [pathname])
 
   return (
     <div className={styles.side}>
