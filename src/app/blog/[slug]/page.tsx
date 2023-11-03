@@ -7,44 +7,36 @@ import variables from '@/variables'
 // components
 import { BlogComponent } from './BlogComponent'
 
-// interfaces
-import { Blog } from '@/models'
-
 // services
 import { NotionBlogService } from '@/services'
-import {
-  NotionList,
-  NotionPage,
-  UniqueIdProperties
-} from '@/models/backend/notion'
 
-export async function generateMetadata({
-  params
-}: {
-  params: { slug: string }
-}) {
-  try {
-    const blog = await NotionBlogService.getBlogBySlugAsync(params.slug)
+// export async function generateMetadata({
+//   params
+// }: {
+//   params: { slug: string }
+// }) {
+//   try {
+//     const blog = await NotionBlogService.getBlogBySlugAsync(params.slug)
 
-    return {
-      title: blog.title,
-      description: blog.description,
-      openGraph: {
-        title: blog.title,
-        description: blog.description,
-        type: 'article',
-        images: `${variables.host.prod}${blog.ogpImage}`,
-        publishedTime: blog.createdAt,
-        modifiedTime: blog.updatedAt,
-        authors: ['Chomolungma Shirayuki']
-      }
-    }
-  } catch {
-    return {
-      title: ''
-    }
-  }
-}
+//     return {
+//       title: blog.title,
+//       description: blog.description,
+//       openGraph: {
+//         title: blog.title,
+//         description: blog.description,
+//         type: 'article',
+//         images: `${variables.host.prod}${blog.ogpImage}`,
+//         publishedTime: blog.createdAt,
+//         modifiedTime: blog.updatedAt,
+//         authors: ['Chomolungma Shirayuki']
+//       }
+//     }
+//   } catch {
+//     return {
+//       title: ''
+//     }
+//   }
+// }
 
 /**
  * Fetch the available paths in advance for SSG.
