@@ -5,3 +5,5 @@ Please create `.env` file and edit like this
 ```ini
 NOTION_API_KEY="secret_************************"
 ```
+
+[Deployment](https://vercel.com/46ki75/website-next-ssr)
