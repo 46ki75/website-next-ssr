@@ -40,14 +40,14 @@ export const Side = () => {
 
   const pathname = usePathname()
 
-  useEffect(() => {
-    setTimeout(() => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      })
-    }, 200)
-  }, [pathname])
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     window.scrollTo({
+  //       top: 0,
+  //       behavior: 'smooth'
+  //     })
+  //   }, 200)
+  // }, [pathname])
 
   return (
     <div className={styles.side}>
@@ -65,7 +65,7 @@ export const Side = () => {
             }}
             whileTap={{ scale: 0.97, transition: { duration: 0.1 } }}
           >
-            <Link href={`/blog/${element.slug}`} scroll={false}>
+            <Link href={`/blog/${element.slug}`} scroll={true}>
               <Image
                 src={element.ogpImage}
                 width='1200'
