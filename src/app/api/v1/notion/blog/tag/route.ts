@@ -1,23 +1,39 @@
+// helpers
+import { getDatabaseSchemeAsync } from '@/helpers'
+
+// global variables
 import variables from '@/variables'
 
-export async function GET() {
+// ResponseBuilder
+import {
+  ErrorResponseBuilder,
+  NormalResponseBuilder
+} from '@/models/backend/ResponseBuilder'
+
+export async function GET(request: Request) {
   try {
-    const response: Response = await fetch(
-      `https://api.notion.com/v1/databases/${variables.notion.database.blog}`,
-      {
-        next: { revalidate: 900 },
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${process.env.NOTION_API_KEY}`,
-          'Notion-Version': '2022-06-28'
-        }
-      }
+    const properties = await getDatabaseSchemeAsync(
+      variables.notion.database.blog
     )
 
-    const data = await response.json()
+    const response = new NormalResponseBuilder()
+      .data(properties.tags.multi_select.options)
+      .self(request.url)
+      .build()
 
-    return Response.json(data.properties.tags.multi_select.options)
+    return Response.json(response)
   } catch (error) {
-    return Response.json({ message: 'Not Found' })
+    const response = new ErrorResponseBuilder(429)
+      .detail(
+        "Request cannot be processed at this time because we have reached the Notion API's rate limit. Please wait before retrying."
+      )
+      .pointer('/api/v1/notion/tag')
+      .parameter('rate_limit')
+      .build()
+
+    return Response.json(response, {
+      status: 429,
+      headers: { 'Retry-After': '60' }
+    })
   }
 }

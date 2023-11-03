@@ -16,15 +16,11 @@ import { Skeleton } from '@mui/material'
 // global variables
 import variables from '@/variables'
 
-// context
-import { useLoading } from '@/contexts'
-
 // scss modules
 import styles from './Side.module.scss'
 import { Date, Tag } from '..'
 
 export const Side = () => {
-  const { isLoading, setIsLoading } = useLoading()
   const [data, setData] = useState<Array<Blog>>([])
 
   useEffect(() => {
@@ -32,8 +28,8 @@ export const Side = () => {
       next: { revalidate: 900 }
     })
       .then((res) => res.json())
-      .then((result) => {
-        setData(result)
+      .then((results) => {
+        setData(results.data)
       })
   }, [])
 

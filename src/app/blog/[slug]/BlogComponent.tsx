@@ -26,7 +26,7 @@ export const BlogComponent = ({ slug }: { slug: string }) => {
         return res.json()
       })
       .then((result) => {
-        setDada(result)
+        setDada(result.data[0])
       })
       .catch((error) => {
         setDada(notFoundBlogProps)
