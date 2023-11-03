@@ -3,6 +3,7 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import styles from './Loading.module.scss'
 import { LinearProgress } from '@mui/material'
+import { motion } from 'framer-motion'
 
 // useMemo を使用してメモ化
 // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -29,9 +30,10 @@ export const Loading = ({ isLoading }: { isLoading: boolean }) => {
     return () => clearInterval(intervalId)
   }, [isLoading])
 
+  const maxElements = 50
   const array = useMemo(
-    () => Array.from({ length: counter }, () => null),
-    [counter]
+    () => Array.from({ length: maxElements }, () => null),
+    []
   )
 
   return (
@@ -65,7 +67,7 @@ export const Loading = ({ isLoading }: { isLoading: boolean }) => {
       <div className={styles['square-container']}>
         <div className={styles.char}>{isLoading ? randomString : '100%'}</div>
         {array.map((_, index) => (
-          <div
+          <motion.div
             className={
               index <= 8
                 ? styles.large
@@ -74,6 +76,9 @@ export const Loading = ({ isLoading }: { isLoading: boolean }) => {
                 : styles.small
             }
             key={index}
+            style={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.05 * index, duration: 0.1 }}
           />
         ))}
       </div>
