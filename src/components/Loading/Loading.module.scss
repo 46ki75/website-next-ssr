@@ -78,7 +78,6 @@ div.loading-container {
       height: 1.75rem;
       border: 1px solid rgba(0, 0, 0, 0.5);
       background-color: rgba(255, 255, 255, 0.3);
-      backdrop-filter: blur(0.5rem);
       transform: skewX(-20deg);
       box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
       animation: appear 0.1s steps(1) both;
@@ -91,7 +90,6 @@ div.loading-container {
       height: 1.25rem;
       border: 1px solid rgba(0, 0, 0, 0.5);
       background-color: rgba(255, 255, 255, 0.3);
-      backdrop-filter: blur(0.25rem);
       transform: skewX(-20deg);
       box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
       animation: appear 0.1s steps(1) both;
@@ -104,7 +102,6 @@ div.loading-container {
       height: 0.5rem;
       border: 1px solid rgba(0, 0, 0, 0.5);
       background-color: rgba(255, 255, 255, 0.3);
-      backdrop-filter: blur(0.25rem);
       transform: skewX(-20deg);
       box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
       animation: appear 0.1s steps(1) both;

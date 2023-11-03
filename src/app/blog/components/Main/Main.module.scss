@@ -46,7 +46,7 @@ Blog article image
 @keyframes fadeInArticleImage {
   0% {
     opacity: 0;
-    filter: blur(1rem);
+    filter: blur(0.25rem);
   }
 
   100% {
