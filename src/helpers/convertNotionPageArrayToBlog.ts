@@ -1,5 +1,5 @@
-import { Blog } from '@/models'
-import { NotionPage } from '@/models/backend/notion'
+import { Blog } from '@/models/frontend'
+import { NotionPage } from '@/models/backend'
 
 export function convertNotionPageArrayToBlog(
   notionPageArray: Array<NotionPage>

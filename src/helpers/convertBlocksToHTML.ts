@@ -1,4 +1,4 @@
-import { RichText } from '@/models/backend/notion'
+import { RichText } from '@/models/backend'
 
 export function convertBlocksToHTML(blocks: Array<any>) {
   let ulFlag = false

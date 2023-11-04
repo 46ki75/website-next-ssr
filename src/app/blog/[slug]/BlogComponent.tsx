@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 
 // interfaces
-import { Blog } from '@/models'
+import { Blog, NormalResponse } from '@/models/frontend'
 
 // components
 import { NotFound, notFoundBlogProps } from './NotFound'
@@ -25,7 +25,7 @@ export const BlogComponent = ({ slug }: { slug: string }) => {
         }
         return res.json()
       })
-      .then((result) => {
+      .then((result: NormalResponse<Blog>) => {
         setDada(result.data[0])
       })
       .catch((error) => {

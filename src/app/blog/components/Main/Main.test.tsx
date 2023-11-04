@@ -1,7 +1,7 @@
 import { test, describe } from 'vitest'
 import { render } from '@testing-library/react'
 import { Main } from './Main'
-import { Blog } from '@/models'
+import { Blog } from '@/models/frontend'
 
 const blogTopProps: Blog = {
   slug: 'blog',

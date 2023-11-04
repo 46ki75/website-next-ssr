@@ -10,7 +10,7 @@ import {
 } from '@/helpers'
 
 // interface
-import { Blog } from '@/models'
+import { Blog } from '@/models/frontend'
 
 export class NotionBlogService {
   static async getBlogListAsync(): Promise<Array<Blog>> {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Blog } from '@/models'
+import { Blog } from '@/models/frontend'
 
 export const notFoundBlogProps: Blog = {
   slug: 'NotFound',

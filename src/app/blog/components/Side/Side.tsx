@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 
 // interfaces
-import { Blog } from '@/models'
+import { Blog, NormalResponse } from '@/models/frontend'
 
 // Material UI
 import { Skeleton } from '@mui/material'
@@ -28,8 +28,8 @@ export const Side = () => {
       next: { revalidate: 900 }
     })
       .then((res) => res.json())
-      .then((results) => {
-        setData(results.data)
+      .then((result: NormalResponse<Blog>) => {
+        setData(result.data)
       })
   }, [])
 
@@ -54,7 +54,7 @@ export const Side = () => {
                   top: 0,
                   behavior: 'smooth'
                 })
-              }, 100)
+              }, 200)
             }}
           >
             <Link href={`/blog/${element.slug}`} scroll={false}>

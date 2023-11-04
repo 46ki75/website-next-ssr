@@ -1,4 +1,4 @@
-import { NotionList, NotionPage } from '@/models/backend/notion'
+import { NotionList, NotionPage } from '@/models/backend'
 
 export async function queryDatabaseRecursivelyAsync(
   notionDatabaseId: string

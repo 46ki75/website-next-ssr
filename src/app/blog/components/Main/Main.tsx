@@ -7,7 +7,7 @@ import { Breadcrumb, Date, Tag } from '../../components'
 import { HR } from '@/components'
 
 // interfaces
-import { Blog } from '@/models'
+import { Blog } from '@/models/frontend'
 
 // global variables
 import variables from '@/variables'
