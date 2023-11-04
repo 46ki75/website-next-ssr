@@ -1,0 +1,316 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Simple Pets API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://www.46ki75.com",
+      "description": "The production API server"
+    },
+    {
+      "url": "http://localhost:3000",
+      "description": "The deveopment API server"
+    }
+  ],
+  "paths": {
+    "/api/v1/blog": {
+      "get": {
+        "summary": "List all Blogs",
+        "operationId": "listBlogs",
+        "tags": ["blog"],
+        "responses": {
+          "200": {
+            "description": "An array of Blogs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/Meta"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Blog"
+                      }
+                    },
+                    "links": {
+                      "$ref": "#/components/schemas/Links"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/blog/{slug}": {
+      "get": {
+        "summary": "Get Specify Blog",
+        "operationId": "getBlog",
+        "tags": ["blog"],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier of the blog post slug",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get Specify Blog",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/Meta"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Blog" }
+                    },
+                    "links": {
+                      "$ref": "#/components/schemas/Links"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/blog/search": {
+      "get": {
+        "summary": "Query Blogs",
+        "operationId": "searchBlog",
+        "tags": ["blog"],
+        "parameters": [
+          {
+            "name": "tag",
+            "in": "query",
+            "description": "Tag Name to search for in blog tags",
+            "required": false,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Query Blogs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/Meta"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Blog" }
+                    },
+                    "links": {
+                      "$ref": "#/components/schemas/Links"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/blog/tag": {
+      "get": {
+        "summary": "List all Tags",
+        "operationId": "listTags",
+        "tags": ["blog"],
+        "responses": {
+          "200": {
+            "description": "An array of Tags",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/Meta"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Tag"
+                      }
+                    },
+                    "links": {
+                      "$ref": "#/components/schemas/Links"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/blog/image/{slug}": {
+      "get": {
+        "summary": "Return OGP Image binary",
+        "operationId": "OGPImage",
+        "tags": ["blog"],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier of the blog post slug",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Image binary",
+            "content": {
+              "image/webp": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BlogResponse": {
+        "type": "object",
+        "required": ["meta", "data", "links"],
+        "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Blog"
+            }
+          },
+          "links": {
+            "$ref": "#/components/schemas/Links"
+          }
+        }
+      },
+      "Meta": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "totalPages": {
+            "type": "integer",
+            "nullable": true
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Links": {
+        "type": "object",
+        "properties": {
+          "self": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "first": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "prev": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "next": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "last": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          }
+        }
+      },
+      "Blog": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "ogpImage": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Tag"
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "content": {
+            "type": "string"
+          }
+        }
+      },
+      "Tag": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

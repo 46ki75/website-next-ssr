@@ -19,7 +19,7 @@ export async function GET(
   } catch (error) {
     const response = new ErrorResponseBuilder(404)
       .detail('No Blog content found. Please check request route parameter.')
-      .pointer('/api/v1/notion/blog/' + params.slug)
+      .pointer('/api/v1/blog/' + params.slug)
       .parameter('slug')
       .build()
 

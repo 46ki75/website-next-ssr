@@ -27,7 +27,7 @@ export async function GET(request: Request) {
       .detail(
         "Request cannot be processed at this time because we have reached the Notion API's rate limit. Please wait before retrying."
       )
-      .pointer('/api/v1/notion/tag')
+      .pointer('/api/v1/tag')
       .parameter('rate_limit')
       .build()
 
