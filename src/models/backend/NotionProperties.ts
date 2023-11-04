@@ -1,3 +1,5 @@
+import { type } from 'os'
+
 /**
  * status
  */
@@ -22,6 +24,24 @@ export interface DateProperties {
     end: 'string' | null
     time_zone: 'string' | null
   }
+}
+
+/**
+ * last_edited_time
+ */
+export interface LastEditedTime {
+  id: string
+  type: 'last_edited_time'
+  last_edited_time: string
+}
+
+/**
+ * created_time
+ */
+export interface CreatedTime {
+  id: string
+  type: 'created_time'
+  created_time: string
 }
 
 /**

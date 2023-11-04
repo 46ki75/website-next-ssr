@@ -3,7 +3,8 @@ const variables = {
   host: { api: 'http://localhost:3000', prod: 'https://www.46ki75.com' },
   notion: {
     database: {
-      blog: 'cb5815aab6d64cb1b0a7ed0064826b45'
+      blog: 'cb5815aab6d64cb1b0a7ed0064826b45',
+      draft: 'a3744bd51fd145f9a0e44e63f5dedfe1'
     }
   },
   fallbackImage:

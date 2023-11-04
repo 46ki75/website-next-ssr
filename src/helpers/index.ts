@@ -1,5 +1,6 @@
 export * from './convertBlocksToHTML'
 export * from './convertNotionPageArrayToBlog'
+export * from './convertNotionPageArrayToDraft'
 export * from './getDatabaseSchemeAsync'
 export * from './queryDatabaseRecursivelyAsync'
 export * from './retrieveBlockRecursivelyAsync'

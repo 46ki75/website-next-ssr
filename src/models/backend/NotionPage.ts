@@ -5,7 +5,9 @@ import {
   FilesProperties,
   MultiSelectProperties,
   UniqueIdProperties,
-  TitleProperties
+  TitleProperties,
+  CreatedTime,
+  LastEditedTime
 } from '.'
 
 /**
@@ -37,6 +39,8 @@ export interface NotionPage {
       | MultiSelectProperties
       | UniqueIdProperties
       | TitleProperties
+      | CreatedTime
+      | LastEditedTime
   }
   url: string
   public_url: string | null
