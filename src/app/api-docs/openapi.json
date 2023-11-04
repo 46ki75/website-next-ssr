@@ -18,7 +18,7 @@
     "/api/v1/blog": {
       "get": {
         "summary": "List all Blogs",
-        "operationId": "listBlogs",
+        "operationId": "GET /api/v1/blog",
         "tags": ["blog"],
         "responses": {
           "200": {
@@ -51,7 +51,7 @@
     "/api/v1/blog/{slug}": {
       "get": {
         "summary": "Get Specify Blog",
-        "operationId": "getBlog",
+        "operationId": "GET /api/v1/blog/{slug}",
         "tags": ["blog"],
         "parameters": [
           {
@@ -91,7 +91,7 @@
     "/api/v1/blog/search": {
       "get": {
         "summary": "Query Blogs",
-        "operationId": "searchBlog",
+        "operationId": "GET /api/v1/blog/search",
         "tags": ["blog"],
         "parameters": [
           {
@@ -131,7 +131,7 @@
     "/api/v1/blog/tag": {
       "get": {
         "summary": "List all Tags",
-        "operationId": "listTags",
+        "operationId": "GET /api/v1/blog/tag",
         "tags": ["blog"],
         "responses": {
           "200": {
@@ -164,7 +164,7 @@
     "/api/v1/blog/image/{slug}": {
       "get": {
         "summary": "Return OGP Image binary",
-        "operationId": "OGPImage",
+        "operationId": "GET /api/v1/blog/image/{slug}",
         "tags": ["blog"],
         "parameters": [
           {
@@ -183,6 +183,152 @@
                 "schema": {
                   "type": "string",
                   "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/draft": {
+      "get": {
+        "summary": "List all Drafts",
+        "operationId": "GET /api/v1/draft",
+        "tags": ["draft"],
+        "responses": {
+          "200": {
+            "description": "An array of Drafts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/Meta"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Draft"
+                      }
+                    },
+                    "links": {
+                      "$ref": "#/components/schemas/Links"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/draft/{slug}": {
+      "get": {
+        "summary": "Get Specify Draft",
+        "operationId": "GET /api/v1/draft/{slug}",
+        "tags": ["draft"],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier of the draft post slug",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get Specify Draft",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/Meta"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Draft" }
+                    },
+                    "links": {
+                      "$ref": "#/components/schemas/Links"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/draft/search": {
+      "get": {
+        "summary": "Query Drafts",
+        "operationId": "GET /api/v1/draft/search",
+        "tags": ["draft"],
+        "parameters": [
+          {
+            "name": "tag",
+            "in": "query",
+            "description": "Tag Name to search for in draft tags",
+            "required": false,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Query Drafts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/Meta"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Draft" }
+                    },
+                    "links": {
+                      "$ref": "#/components/schemas/Links"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/draft/tag": {
+      "get": {
+        "summary": "List all Tags",
+        "operationId": "GET /api/v1/draft/tag",
+        "tags": ["draft"],
+        "responses": {
+          "200": {
+            "description": "An array of Tags",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/Meta"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Tag"
+                      }
+                    },
+                    "links": {
+                      "$ref": "#/components/schemas/Links"
+                    }
+                  }
                 }
               }
             }
@@ -275,6 +421,41 @@
             "type": "string"
           },
           "ogpImage": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Tag"
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "content": {
+            "type": "string"
+          }
+        }
+      },
+      "Draft": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
             "type": "string"
           },
           "tags": {
