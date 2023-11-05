@@ -1,16 +1,35 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 
 // scss modules
 import styles from './Search.module.scss'
 
 // models
-import { Blog, NormalResponse } from '@/models/frontend'
+import { Blog, BlogTag, NormalResponse } from '@/models/frontend'
 
 // global variables
 import { Card, Tag } from '..'
+
+// React Query
+import { useQuery } from 'react-query'
+
+async function fetchTags(): Promise<Array<BlogTag>> {
+  const response = await fetch(`/api/v1/blog/tag`, {
+    next: { revalidate: 1800 }
+  })
+  if (!response.ok) throw new Error('Fetching tag list is failed')
+  const result: NormalResponse<BlogTag> = await response.json()
+  return result.data
+}
+
+async function fetchBlogs(): Promise<Array<Blog>> {
+  const response = await fetch(`/api/v1/blog`, { next: { revalidate: 1800 } })
+  if (!response.ok) throw new Error('Network response was not ok')
+  const result: NormalResponse<Blog> = await response.json()
+  return result.data
+}
 
 const useMatchMedia = (mediaQuery: string) => {
   const [matches, setMatches] = useState(false)
@@ -30,52 +49,63 @@ const useMatchMedia = (mediaQuery: string) => {
 }
 
 export const Search = () => {
-  const [data, setData] = useState<Array<Blog>>([])
-  const [tags, setTags] =
-    useState<Array<{ id: string; name: string; color: string }>>()
-
   const params = useSearchParams()
+  const [blogs, setBlogs] = useState<Array<Blog>>()
+
+  const {
+    data: tags,
+    isLoading: isTagsLoading,
+    isError: isTagsError
+  } = useQuery<Array<BlogTag>, Error>('tags', fetchTags, {
+    staleTime: 900 * 1000,
+    cacheTime: 900 * 1000
+  })
+
+  const {
+    data: rawBlogs,
+    isLoading,
+    isError
+  } = useQuery<Array<Blog>, Error>('blogs', fetchBlogs, {
+    staleTime: 900 * 1000,
+    cacheTime: 900 * 1000,
+    onSuccess: (data: Array<Blog>) => setBlogs(data)
+  })
+  const searchPositionRef = useRef<HTMLDivElement>(null)
+
+  const scrollToElement = (ref: React.RefObject<HTMLElement>) => {
+    if (ref.current) {
+      const top = ref.current.offsetTop
+      window.scrollTo({
+        top,
+        behavior: 'smooth'
+      })
+    }
+  }
+
+  const [selectedTag, setSelectedTag] = useState<string | null>()
 
   useEffect(() => {
-    const fetchTags = () => {
-      fetch(`/api/v1/blog/tag`, {
-        next: { revalidate: 900 }
-      })
-        .then((res) => res.json())
-        .then(
-          (
-            result: NormalResponse<{ id: string; name: string; color: string }>
-          ) => {
-            setTags(result.data)
-          }
+    setSelectedTag(params.get('tag'))
+    const filterByTag = () => {
+      if (selectedTag) {
+        const filteredBlogs = rawBlogs?.filter((blog) =>
+          blog.tags.some((tag) => tag.name === selectedTag)
         )
+        scrollToElement(searchPositionRef)
+        setBlogs(filteredBlogs)
+      } else {
+        setBlogs(rawBlogs)
+      }
     }
-
-    fetchTags()
-  }, [])
-
-  useEffect(() => {
-    const handleSearch = () => {
-      fetch(`/api/v1/blog/search?${params.toString()}`, {
-        next: { revalidate: 900 }
-      })
-        .then((res) => res.json())
-        .then((result: NormalResponse<Blog>) => {
-          setData(result.data)
-        })
-        .catch((_) => {
-          setData([])
-        })
-    }
-    handleSearch()
-  }, [params])
+    filterByTag()
+  }, [params, rawBlogs, selectedTag])
 
   const matches = useMatchMedia('(min-width: 1024px)')
 
   return (
     <>
-      <h2>記事検索</h2>
-      <h3 id='tag'>タグ一覧</h3>
+      <h2 ref={searchPositionRef}>記事検索</h2>
+      <h3>タグ一覧</h3>
       <Tag
         tags={
           tags
@@ -94,7 +124,7 @@ export const Search = () => {
         <>
           {tags ? (
             <Tag
-              tags={tags.filter((tag) => tag.name === params.get('tag'))}
+              tags={tags.filter((tag) => tag.name === selectedTag)}
               isLinkEnable={true}
             />
           ) : (
@@ -104,8 +134,8 @@ export const Search = () => {
       </div>
 
       <div className={styles['card-container']}>
-        {data !== undefined ? (
-          data.map((blog, index) => (
+        {blogs !== undefined ? (
+          blogs.map((blog, index) => (
             <Card
               blog={blog}
               index={index}

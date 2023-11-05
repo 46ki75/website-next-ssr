@@ -4,8 +4,14 @@ export interface Blog {
   title: string
   description: string
   ogpImage: string
-  tags: Array<{ id: string; name: string; color: string }>
+  tags: Array<BlogTag>
   createdAt: string
   updatedAt: string
   content: string
+}
+
+export interface BlogTag {
+  id: string
+  name: string
+  color: string
 }

@@ -1,7 +1,11 @@
 import type { Metadata } from 'next'
 
 // context
-import { LoadingProvider, ThemeProvider } from '@/contexts'
+import {
+  LoadingProvider,
+  QueryClientProviderWrapper,
+  ThemeProvider
+} from '@/contexts'
 
 // global scss
 import './globals.scss'
@@ -9,6 +13,9 @@ import '@fortawesome/fontawesome-free/css/all.min.css'
 
 // components
 import { LoadingRenderer } from './LoadingRenderer'
+
+// react query
+import { QueryClientProvider } from 'react-query'
 
 export const metadata: Metadata = {
   // TODO: set Landing Page's title and description
@@ -40,10 +47,12 @@ export default function RootLayout({
     <html lang='ja'>
       <ThemeProvider>
         <LoadingProvider>
-          <body>
-            {children}
-            <LoadingRenderer />
-          </body>
+          <QueryClientProviderWrapper>
+            <body>
+              {children}
+              <LoadingRenderer />
+            </body>
+          </QueryClientProviderWrapper>
         </LoadingProvider>
       </ThemeProvider>
     </html>

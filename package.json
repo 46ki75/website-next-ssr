@@ -28,6 +28,7 @@
     "prismjs": "^1.29.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-query": "^3.39.3",
     "sharp": "^0.32.6",
     "swagger-ui-dist": "^5.9.1",
     "swagger-ui-react": "^5.9.1",
