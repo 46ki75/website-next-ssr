@@ -99,6 +99,13 @@
             "in": "query",
             "description": "Tag Name to search for in blog tags",
             "required": false,
+            "schema": { "type": "array", "items": { "type": "string" } }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "Keyword to search for in Blog title and description",
+            "required": false,
             "schema": { "type": "string" }
           }
         ],
@@ -273,6 +280,13 @@
             "name": "tag",
             "in": "query",
             "description": "Tag Name to search for in draft tags",
+            "required": false,
+            "schema": { "type": "array", "items": { "type": "string" } }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "Keyword to search for in Draft title and description",
             "required": false,
             "schema": { "type": "string" }
           }

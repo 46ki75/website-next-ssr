@@ -53,7 +53,7 @@ export async function GET(
     return new Response(defaultImageBuffer, {
       headers: {
         'Content-Type': defaultMimeType,
-        'Content-Length': defaultImageBuffer.length.toString()
+        'Content-Length': defaultImageBuffer.byteLength.toString()
       }
     })
   }

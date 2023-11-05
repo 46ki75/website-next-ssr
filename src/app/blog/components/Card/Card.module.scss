@@ -1,0 +1,49 @@
+.blog-card {
+  /* NOTICE: activated by framer-motion */
+  opacity: 0;
+
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  margin: 0 0 0.5rem 0;
+
+  background-color: rgba(255, 255, 255, 0.65);
+
+  a {
+    text-decoration: none;
+    color: unset;
+    transition: 0.3s;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    border-top: 3px solid rgba(61, 161, 128, 0.8);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.02);
+  }
+
+  div.caption-container {
+    padding: 0.5rem 0.5rem 0rem 0.5rem;
+
+    span {
+      font-size: 1.25rem;
+      color: rgba(0, 0, 0, 0.9);
+    }
+
+    p {
+      padding: 0.25rem;
+      font-size: 0.9rem;
+      color: rgba(0, 0, 0, 0.9);
+      opacity: 0.6;
+    }
+  }
+
+  div.tag-and-date-container {
+    margin: 0.25rem;
+    margin-left: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}
