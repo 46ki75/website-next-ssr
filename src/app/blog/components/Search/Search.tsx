@@ -30,47 +30,51 @@ const useMatchMedia = (mediaQuery: string) => {
 }
 
 export const Search = () => {
-  const [data, setData] = useState<Array<Blog>>()
+  const [data, setData] = useState<Array<Blog>>([])
   const [tags, setTags] =
     useState<Array<{ id: string; name: string; color: string }>>()
 
   const params = useSearchParams()
 
   useEffect(() => {
+    const fetchTags = () => {
+      fetch(`/api/v1/blog/tag`, {
+        next: { revalidate: 900 }
+      })
+        .then((res) => res.json())
+        .then(
+          (
+            result: NormalResponse<{ id: string; name: string; color: string }>
+          ) => {
+            setTags(result.data)
+          }
+        )
+    }
+
+    fetchTags()
+  }, [])
+
+  useEffect(() => {
     const handleSearch = () => {
-      const url = `/api/v1/blog/search?${params.toString()}`
-      fetch(url, {
+      fetch(`/api/v1/blog/search?${params.toString()}`, {
         next: { revalidate: 900 }
       })
         .then((res) => res.json())
         .then((result: NormalResponse<Blog>) => {
           setData(result.data)
         })
+        .catch((_) => {
+          setData([])
+        })
     }
-
     handleSearch()
   }, [params])
-
-  useEffect(() => {
-    fetch(`/api/v1/blog/tag`, {
-      next: { revalidate: 900 }
-    })
-      .then((res) => res.json())
-      .then(
-        (
-          result: NormalResponse<{ id: string; name: string; color: string }>
-        ) => {
-          setTags(result.data)
-        }
-      )
-  }, [])
 
   const matches = useMatchMedia('(min-width: 1024px)')
 
   return (
     <>
       <h2>記事検索</h2>
-      <span>{params.get('tag')}</span>
       <h3 id='tag'>タグ一覧</h3>
       <Tag
         tags={
@@ -82,13 +86,17 @@ export const Search = () => {
                 { id: 'x3', name: '????', color: '' }
               ]
         }
+        isLinkEnable={true}
       />
       <div className={styles['selected-tag']}>
         <span>選択中のタグ:&nbsp;</span>
 
         <>
           {tags ? (
-            <Tag tags={tags.filter((tag) => tag.name === params.get('tag'))} />
+            <Tag
+              tags={tags.filter((tag) => tag.name === params.get('tag'))}
+              isLinkEnable={true}
+            />
           ) : (
             <></>
           )}
@@ -96,7 +104,7 @@ export const Search = () => {
       </div>
 
       <div className={styles['card-container']}>
-        {data ? (
+        {data !== undefined ? (
           data.map((blog, index) => (
             <Card
               blog={blog}

@@ -12,7 +12,7 @@ export async function GET() {
   } catch {
     const response = new ErrorResponseBuilder(500)
       .detail('Internal Server Error')
-      .pointer('/v1/draft')
+      .pointer('/v1/blog')
       .build()
     return Response.json(response, { status: 500 })
   }

@@ -42,6 +42,7 @@ export const Main = ({
                   { id: 'x3', name: '????', color: '' }
                 ]
           }
+          isLinkEnable={true}
         />
         <Date
           createdAt={blog ? blog.createdAt : '????-??-??'}

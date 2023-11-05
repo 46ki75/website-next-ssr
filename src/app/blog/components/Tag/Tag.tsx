@@ -12,11 +12,14 @@ import { motion } from 'framer-motion'
 // scss modules
 import styles from './Tag.module.scss'
 import Link from 'next/link'
+import { bool } from 'sharp'
 
 export const Tag = ({
-  tags
+  tags,
+  isLinkEnable
 }: {
   tags: Array<{ id: string; name: string; color: string }>
+  isLinkEnable?: boolean
 }) => {
   return (
     <div className={styles['tag-container']}>
@@ -28,12 +31,21 @@ export const Tag = ({
             animate={{ opacity: 1 }}
             transition={{ delay: 0.1 * index + 0.5, duration: 0.2 }}
           >
-            <Link href={`/blog?tag=${tag.name}`} scroll={false}>
-              <span className={styles['tag-icon']}>
-                <FontAwesomeIcon icon={faTags} />
-              </span>
-              <span>{tag.name}</span>
-            </Link>
+            {isLinkEnable ? (
+              <Link href={`/blog?tag=${tag.name}`} scroll={false}>
+                <span className={styles['tag-icon']}>
+                  <FontAwesomeIcon icon={faTags} />
+                </span>
+                <span>{tag.name}</span>
+              </Link>
+            ) : (
+              <>
+                <span className={styles['tag-icon']}>
+                  <FontAwesomeIcon icon={faTags} />
+                </span>
+                <span>{tag.name}</span>
+              </>
+            )}
           </motion.div>
         ))
       ) : (

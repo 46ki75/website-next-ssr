@@ -2,13 +2,13 @@ import {
   convertNotionPageArrayToBlog,
   queryDatabaseRecursivelyAsync
 } from '@/helpers'
-import { NormalResponseBuilder } from '@/models/backend/ResponseBuilder'
+import {
+  ErrorResponseBuilder,
+  NormalResponseBuilder
+} from '@/models/backend/ResponseBuilder'
 import variables from '@/variables'
 
-export async function GET(
-  request: Request,
-  { params }: { params: { tagName: string } }
-) {
+export async function GET(request: Request) {
   try {
     const url = new URL(request.url)
     const tags = url.searchParams.getAll('tag')
@@ -61,6 +61,10 @@ export async function GET(
 
     return Response.json(response)
   } catch (error) {
-    return Response.json({ message: 'Not Found' })
+    const response = new ErrorResponseBuilder(500)
+      .detail('Internal Server Error')
+      .pointer('/v1/blog/search')
+      .build()
+    return Response.json(response, { status: 500 })
   }
 }

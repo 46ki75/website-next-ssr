@@ -62,7 +62,7 @@ export const Card = ({
           </div>
 
           <div className={styles['tag-and-date-container']}>
-            <Tag tags={blog.tags} />
+            <Tag tags={blog.tags} isLinkEnable={false} />
             <Date createdAt={blog.createdAt} updatedAt={blog.updatedAt} />
           </div>
         </Link>
