@@ -10,9 +10,6 @@ import { BlogComponent } from './BlogComponent'
 // services
 import { NotionBlogService } from '@/services'
 
-// models
-import { Blog } from '@/models/frontend'
-
 export async function generateMetadata({
   params
 }: {
@@ -39,16 +36,6 @@ export async function generateMetadata({
       title: ''
     }
   }
-}
-
-/**
- * Fetch the available paths in advance for SSG.
- */
-export async function generateStaticParams() {
-  const results = await NotionBlogService.getBlogListAsync()
-  return results.map((element: Blog) => ({
-    slug: element.slug
-  }))
 }
 
 const Page = ({ params }: { params: { slug: string } }) => {
