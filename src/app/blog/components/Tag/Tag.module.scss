@@ -26,6 +26,16 @@ div.tag-container {
     /* NOTICE: activated by framer-motion */
     opacity: 0;
 
+    transition: 0.1s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
+
     span {
       margin: 0 0.1rem;
       white-space: nowrap;

@@ -12,7 +12,6 @@ import { motion } from 'framer-motion'
 // scss modules
 import styles from './Tag.module.scss'
 import Link from 'next/link'
-import { bool } from 'sharp'
 
 export const Tag = ({
   tags,
