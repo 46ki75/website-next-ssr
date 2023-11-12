@@ -33,12 +33,6 @@ export const Card = ({
         style={style}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2 * index, duration: 0.4 }}
-        whileHover={{
-          scale: 1.01,
-          opacity: 0.8,
-          transition: { duration: 0.1 }
-        }}
-        whileTap={{ scale: 0.97, transition: { duration: 0.1 } }}
         onClick={() => {
           setTimeout(() => {
             window.scrollTo({
