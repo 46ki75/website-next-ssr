@@ -1,0 +1,24 @@
+.side {
+  width: 20rem;
+
+  padding: 0.5rem;
+
+  ul {
+    a {
+      all: unset;
+      cursor: pointer;
+    }
+
+    li {
+      margin-bottom: 1rem;
+      padding: 0.25rem;
+      border-radius: 0.25rem;
+
+      transition: 0.3s;
+
+      &:hover {
+        background-color: rgba(65, 136, 216, 0.2);
+      }
+    }
+  }
+}
