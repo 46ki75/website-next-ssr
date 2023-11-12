@@ -2,7 +2,7 @@ import React from 'react'
 
 // components
 import { Footer, Header, Side } from './components'
-import Pagetop from '@/components/Pagetop'
+import { Pagetop } from '@/components'
 
 // scss modules
 import styles from './page.module.scss'
