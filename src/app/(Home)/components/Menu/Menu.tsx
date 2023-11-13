@@ -8,6 +8,8 @@ export const Menu = () => {
   return (
     <div className={styles['menu-container']}>
       <Link href='/blog'>blog</Link>
+      <Link href='/portfolio'>portfolio</Link>
+      <Link href='/draft'>draft</Link>
     </div>
   )
 }

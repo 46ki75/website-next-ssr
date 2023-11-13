@@ -1,2 +1,6 @@
+export * from './Article/Article'
+export * from './Date/Date'
 export * from './Header/Header'
+export * from './Main/Main'
 export * from './Side/Side'
+export * from './Tag/Tag'

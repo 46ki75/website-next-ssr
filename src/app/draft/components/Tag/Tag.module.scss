@@ -1,0 +1,73 @@
+div.tag-container {
+  box-sizing: border-box;
+  padding: 0.25rem 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-self: flex-start;
+
+  * {
+    font-size: 0.8rem;
+  }
+
+  a {
+    text-decoration: unset;
+    color: unset;
+  }
+
+  div {
+    padding: 0.25rem;
+    margin: 0.25rem 0.25rem;
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-wrap: nowrap;
+
+    /* NOTICE: activated by framer-motion */
+    opacity: 0;
+
+    transition: 0.1s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
+
+    span {
+      margin: 0 0.1rem;
+      white-space: nowrap;
+    }
+    span.tag-icon {
+      color: rgba(0, 0, 0, 0.7);
+    }
+  }
+
+  /* TAG COLOR */
+  div.brown {
+    background-color: rgba(71, 10, 10, 0.2);
+  }
+  div.orange {
+    background-color: rgba(219, 117, 21, 0.2);
+  }
+  div.yellow {
+    background-color: rgba(184, 165, 19, 0.2);
+  }
+  div.green {
+    background-color: rgba(36, 177, 52, 0.2);
+  }
+  div.blue {
+    background-color: rgba(20, 72, 214, 0.2);
+  }
+  div.purple {
+    background-color: rgba(108, 36, 171, 0.2);
+  }
+  div.pink {
+    background-color: rgba(210, 49, 162, 0.2);
+  }
+  div.red {
+    background-color: rgba(182, 14, 14, 0.2);
+  }
+}

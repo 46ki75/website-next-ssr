@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 
 // models
 import { Draft, NormalResponse } from '@/models/frontend'
@@ -19,26 +19,41 @@ async function fetchBlogs(): Promise<Array<Draft>> {
   return result.data
 }
 
+const menuStyle = (isActive: boolean) => {
+  if (isActive) return { transform: 'translateX(0%)' }
+  return { transform: 'translateX(-100%)' }
+}
+
 export const Side = () => {
+  const [isActive, setIsActive] = useState(false)
+
   const { data, isLoading, isError } = useQuery<Array<Draft>, Error>(
     'drafts',
     fetchBlogs,
     { staleTime: 900 * 1000, cacheTime: 900 * 1000 }
   )
 
-  if (isLoading) return <>Loading</>
+  if (isLoading) return <div className={styles.side}>Loading</div>
 
-  if (isError) return <>Error</>
+  if (isError) return <div className={styles.side}>Error</div>
 
   return (
-    <div className={styles.side}>
-      <ul>
-        {data?.map((draft) => (
-          <Link href={`/draft/${draft.slug}`} key={draft.slug}>
-            <li>{draft.title} </li>
-          </Link>
-        ))}
-      </ul>
-    </div>
+    <>
+      <div
+        className={styles.button}
+        onClick={() => {
+          setIsActive(!isActive)
+        }}
+      ></div>
+      <div className={styles.side} style={menuStyle(isActive)}>
+        <ul>
+          {data?.map((draft) => (
+            <Link href={`/draft/${draft.slug}`} key={draft.slug}>
+              <li>{draft.title} </li>
+            </Link>
+          ))}
+        </ul>
+      </div>
+    </>
   )
 }

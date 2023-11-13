@@ -65,7 +65,6 @@ export class NotionDraftService {
 
     const blocks = await retrieveBlockRecursivelyAsync(result.id)
     draft.content = convertBlocksToHTML(blocks)
-
     return draft
   }
 }
